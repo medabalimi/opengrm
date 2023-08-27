@@ -19,6 +19,19 @@ workspace(name = "org_opengrm_ngram")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
+    name = "bazel_skylib",
+    sha256 = "66ffd9315665bfaafc96b52278f57c7e2dd09f5ede279ea6d39b2be471e7e3aa",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.4.2/bazel-skylib-1.4.2.tar.gz",
+        "https://github.com/bazelbuild/bazel-skylib/releases/download/1.4.2/bazel-skylib-1.4.2.tar.gz",
+    ],
+)
+
+load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
+
+bazel_skylib_workspace()
+
+http_archive(
     # Name has to match workspace name in:
     #   https://github.com/abseil/abseil-cpp/blob/master/WORKSPACE
     name = "com_google_absl",
@@ -36,11 +49,11 @@ http_archive(
 # OpenFst: See
 #    http://www.openfst.org/twiki/pub/FST/FstDownload/README
 # -------------------------------------------------------------------------
-openfst_version = "1.8.2"
+openfst_version = "1.8.2p2"
 
 http_archive(
     name = "org_openfst",
-    urls = ["https://www.openfst.org/twiki/pub/FST/FstDownload/openfst-%s.tar.gz" % openfst_version],
-    sha256 = "de987bf3624721c5d5ba321af95751898e4f4bb41c8a36e2d64f0627656d8b42",
+    urls = ["https://github.com/medabalimi/openfst/archive/refs/tags/%s.tar.gz" % openfst_version],
+    sha256 = "38fe8473fbd5f1e7c4ebaabec1e01d3e73a5dab9d08011600907f6c0633a9b7e",
     strip_prefix = "openfst-%s" % openfst_version,
 )
